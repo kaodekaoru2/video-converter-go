@@ -2,48 +2,62 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>最強の動画変換ツール</title>
+    <title>動画変換</title>
     <style>
         body {
             font-family: sans-serif;
             max-width: 600px;
             margin: 50px auto;
             text-align: center;
-            background-color: #f0f8ff; /* 薄い青色 */
+            background-color: #f0f8ff;
         }
-        h1 { color: #333; }
         .box {
             background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        select, input[type="file"] {
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 16px;
-        }
+        select, input[type="file"] { margin: 10px 0; padding: 10px; font-size: 16px; }
         input[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
+            background-color: #007bff; color: white; border: none;
+            padding: 12px 24px; font-size: 18px; border-radius: 5px; cursor: pointer;
+            transition: background-color 0.3s;
         }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+        input[type="submit"]:hover { background-color: #0056b3; }
+
+        /* ▼ ローディング画面のスタイル（普段は隠しておく） */
+        #loading {
+            display: none; /* 最初は非表示 */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            flex-direction: column; justify-content: center; align-items: center;
         }
+        /* グルグル回るアニメーション */
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid #ccc;
+            border-top: 5px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { font-size: 24px; font-weight: bold; color: #333; }
     </style>
 </head>
 <body>
 
-    <div class="box">
-        <h1>🎥 動画変換ツール Ver.4</h1>
-        <p>Go言語 × FFmpeg で爆速変換します</p>
+    <div id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">変換中... しばらくお待ちください。</div>
+    </div>
 
-        <form action="/convert" method="post" enctype="multipart/form-data">
+    <div class="box">
+        <h1>🎥 動画変換 Ver.5</h1>
+        <p>Go言語 × FFmpeg で変換します</p>
+
+        <form id="uploadForm" action="/convert" method="post" enctype="multipart/form-data">
             <p>
                 <label>① 動画ファイルを選択:</label><br>
                 <input type="file" name="videoFile" accept=".mp4" required>
@@ -59,9 +73,17 @@
             </p>
 
             <br>
-            <input type="submit" value="変換スタート！">
+            <input type="submit" value="変換スタート">
         </form>
     </div>
+
+    <script>
+        // 送信ボタンが押されたらローディング画面を出す処理
+        document.getElementById('uploadForm').onsubmit = function() {
+            // ローディング画面を表示 (flexにすると真ん中に来る)
+            document.getElementById('loading').style.display = 'flex';
+        };
+    </script>
 
 </body>
 </html>
