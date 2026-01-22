@@ -1,0 +1,10 @@
+# 動画ファイルなどは無視する
+uploads/*
+!uploads/.keep
+
+# 実行ファイル（ビルドされたもの）は無視する
+*.exe
+*.o
+
+# VSCodeの設定ファイル
+.vscode/

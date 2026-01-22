@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>最強の動画変換ツール</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: #f0f8ff; /* 薄い青色 */
+        }
+        h1 { color: #333; }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        select, input[type="file"] {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>🎥 動画変換ツール Ver.4</h1>
+        <p>Go言語 × FFmpeg で爆速変換します</p>
+
+        <form action="/convert" method="post" enctype="multipart/form-data">
+            <p>
+                <label>① 動画ファイルを選択:</label><br>
+                <input type="file" name="videoFile" accept=".mp4" required>
+            </p>
+
+            <p>
+                <label>② 変換モードを選択:</label><br>
+                <select name="format">
+                    <option value="gif">GIFアニメ (動画→動く画像)</option>
+                    <option value="mp3">MP3 (動画→音声のみ)</option>
+                    <option value="jpg">JPEG (動画→サムネイル画像)</option>
+                </select>
+            </p>
+
+            <br>
+            <input type="submit" value="変換スタート！">
+        </form>
+    </div>
+
+</body>
+</html>
