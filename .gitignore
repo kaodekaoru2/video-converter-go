@@ -8,3 +8,6 @@ uploads/*
 
 # VSCodeの設定ファイル
 .vscode/
+
+# 追加: Linux/Mac用の実行ファイルも無視する
+main
