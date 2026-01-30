@@ -1,27 +1,31 @@
-name: Go test
+name: CI/CD Pipeline
 
-#1.トリガー：　いつ動くか？（pushした時）
 on: [push]
 
-#2.ジョブ：何をするか？
 jobs:
-    test:
-        name: Test on Linux
-        #どこで動かすか？（Ubuntuの最新版）
-        runs-on: ubuntu-latest
+  # 仕事1: テスト (さっき作ったもの)
+  test:
+    name: Run Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - name: Run Test
+        run: go test -v ./...
 
-        #3.手順：具体的なステップ
-        steps:
-            #（１）GitHubにあるコードをこの仮想マシンに持ってくる
-            - name: Checkout code
-              uses: actions/checkout@v4
-
-            #（２）Go言語を使えるようにセットアップする（バージョン1.23）
-            - name: Setup Go
-              uses: actions/setup-go@v5
-              with:
-                go-version: '1.23'
-
-            #（３）さっきの手元のテストと同じコマンドを実行する
-            - name: Run Test
-              run: go test -v ./...
+  # 仕事2: デプロイ (ここが追加！)
+  deploy:
+    name: Deploy to Render
+    runs-on: ubuntu-latest
+    # 重要: testの仕事が成功しないと、この仕事はしない
+    needs: test
+    # 重要: mainブランチの時だけ実行する (実験用ブランチではやらない)
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Call Render Deploy Hook
+        # さっき金庫に入れたURLを呼び出す
+        run: curl "${{ secrets.RENDER_DEPLOY_HOOK }}"
