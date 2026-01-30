@@ -111,3 +111,8 @@ func main() {
 	fmt.Println("🚀 サーバー起動中... http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
 }
+
+// Addは2つの整数を足す関数（テスト練習用）
+func Add(a int, b int) int {
+	return a + b
+}

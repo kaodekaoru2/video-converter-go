@@ -1,0 +1,27 @@
+name: Go test
+
+#1.トリガー：　いつ動くか？（pushした時）
+on: [push]
+
+#2.ジョブ：何をするか？
+jobs:
+    test:
+        name: Test on Linux
+        #どこで動かすか？（Ubuntuの最新版）
+        runs-on: ubuntu-latest
+
+        #3.手順：具体的なステップ
+        steps:
+            #（１）GitHubにあるコードをこの仮想マシンに持ってくる
+            - name: Checkout code
+              uses: actions/checout@v4
+
+            #（２）Go言語を使えるようにセットアップする（バージョン1.23）
+            - name: Setup Go
+              uses: actions/setup-go@v5
+              with:
+                go-version: '1.23'
+
+            #（３）さっきの手元のテストと同じコマンドを実行する
+            - name: Run Test
+              run: go test -v ./...
