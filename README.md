@@ -1,3 +1,5 @@
+[![Go test](https://github.com/kaodekaoru2/video-converter-go/actions/workflows/test.yml/badge.svg)](https://github.com/kaodekaoru2/video-converter-go/actions/workflows/test.yml)
+
 # 🎥 Go Video Converter
 
 Go言語とFFmpegを使用した、Webベースの動画変換ツールです。
