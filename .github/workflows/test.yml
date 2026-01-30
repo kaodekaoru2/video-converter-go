@@ -14,7 +14,7 @@ jobs:
         steps:
             #（１）GitHubにあるコードをこの仮想マシンに持ってくる
             - name: Checkout code
-              uses: actions/checout@v4
+              uses: actions/checkout@v4
 
             #（２）Go言語を使えるようにセットアップする（バージョン1.23）
             - name: Setup Go
